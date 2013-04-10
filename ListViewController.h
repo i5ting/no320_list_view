@@ -32,9 +32,14 @@
 
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
+    CGRect _frame;
 
 }
 
 @property (nonatomic, retain) IBOutlet UITableView* table;
+
+
+-(id)initWithFrame:(CGRect)frame;
+
 
 @end

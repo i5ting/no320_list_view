@@ -32,6 +32,14 @@
 
 @synthesize table;
 
+-(id)initWithFrame:(CGRect)frame
+{
+    if (self = [super init]) {
+        _frame = frame;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,6 +59,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.table = [[UITableView alloc] initWithFrame:_frame style:UITableViewStylePlain];
+    self.table.delegate = self;
+    self.table.dataSource = self;
+    [self.view addSubview:self.table];
 	
 	if (_refreshHeaderView == nil) {
 		
