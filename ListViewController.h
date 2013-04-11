@@ -9,7 +9,6 @@
 #import "EGORefreshTableHeaderView.h"
 
 @interface ListViewController : UIViewController <EGORefreshTableHeaderDelegate> {
-
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
     CGRect _frame;
