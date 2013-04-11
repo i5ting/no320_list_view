@@ -11,7 +11,6 @@
 
 @protocol PageListViewControllerProtocol <NSObject>
 @required
--(void)reload_with_cur_page_number:(int)cur_page_number;
 
 -(int)set_page_count;
 

@@ -284,7 +284,7 @@
                     [self.delegate page_list_view_next_page:tableView did_select_row_at_index_path:indexPath has_more_page:self._has_more_page];
                 }
             }else{
-                [self page_list_view_next_page:tableView did_select_row_at_index_path:indexPath has_more_page:self._has_more_page];
+                [self.delegate page_list_view:tableView did_select_row_at_index_path:indexPath];
             }
             break;
             
