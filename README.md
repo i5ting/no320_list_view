@@ -67,6 +67,51 @@
 
 
 
+## feature
+
+### 对外可访问attr
+
+    @property(nonatomic,retain,readwrite) NSMutableArray *result_array;
+    @property(nonatomic,assign,readwrite) int cur_page_number;
+    @property(nonatomic,assign,readwrite) int page_count;
+    @property(nonatomic,assign,readwrite) Boolean _has_more_page;
+
+
+- result_array     table的数据源
+- cur_page_number  当前页号
+- page_count       每页最大数    如果返回数据小于它，就没有下一页
+- _has_more_page   是否有下一页   根据page_count计算的。
+
+
+
+
+### 是否显示下来view
+
+    - (void)viewDidLoad
+    {
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        // [self set_pull_down_enable:NO];
+    }
+
+
+### 获取下一页数据，手动
+
+    [self get_next_page]
+
+在下一页按钮点击的时候可以用这个，当然也对外公开.
+
+
+### 下一页模式：3种
+
+ 
+PageListViewModeNone = 0,  不使用任何样式
+PageListViewModeDrag = 1,  上拉加载下一页
+PageListViewModeCell = 2   点击cell加载下一页
+
+
+
 ## 用法
 
 
