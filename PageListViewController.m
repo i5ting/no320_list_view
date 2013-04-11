@@ -167,6 +167,8 @@
     [self performSelector:@selector(reloadNextPage) withObject:nil afterDelay:.1];
 }
 
+
+
 #pragma mark - Private methods
 
 -(void)set_is_has_next_page:(int)cur_arrry_count
