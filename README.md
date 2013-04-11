@@ -61,7 +61,9 @@
 
 所有的数据可以二次处理，分别在init_table_data_callback和reload_next_page_callback方法中。
 
-当然，你的请求可能不是安装pagenumber来出里的，比如最后一次的id，这时候，就可以在init_table_data_callback和reload_next_page_callback方法里处理一下。另一个极端的办法的就是，直接去self.result_array然后去操作。
+当然，你的请求可能不是使用pagenumber分页来处理的，比如最后一次的id，这时候，就可以在init_table_data_callback和reload_next_page_callback方法里处理一下。
+
+另一个极端的办法的就是，直接去self.result_array然后去操作。
 
 
 
