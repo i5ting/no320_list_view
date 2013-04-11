@@ -19,6 +19,7 @@
 @implementation PageListViewController
 @synthesize delegate;
 @synthesize result_array,cur_page_number,page_count;
+@synthesize _has_more_page;
 
 - (void)didReceiveMemoryWarning
 {
@@ -222,7 +223,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_mode == PageListViewModeCell || _mode == PageListViewModeDrag) {
-        if (_has_more_page) {
+        if (self._has_more_page) {
             int contentHeight = scrollView.contentSize.height;
             contentHeight = contentHeight>=scrollView.bounds.size.height?contentHeight:scrollView.bounds.size.height;
             int extraHeight = contentHeight - scrollView.bounds.size.height;
@@ -236,7 +237,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (![self.delegate respondsToSelector:@selector(page_list_view_next_page:cell_for_row_at_index_path:)]) {
+    if (![self.delegate respondsToSelector:@selector(page_list_view_next_page:cell_for_row_at_index_path:has_more_page:)]) {
         assert(@"cellForRowAtIndexPath fail");
     }
     
@@ -251,7 +252,7 @@
             if (indexPath.row< [self.result_array count]) {
                 return  [self.delegate page_list_view:tableView cell_for_row_at_index_path:indexPath];
             }else{
-                return  [self.delegate page_list_view_next_page:tableView cell_for_row_at_index_path:indexPath];
+                return  [self.delegate page_list_view_next_page:tableView cell_for_row_at_index_path:indexPath has_more_page:self._has_more_page];
             }
             
             break;
@@ -276,14 +277,14 @@
             [self.delegate page_list_view:tableView did_select_row_at_index_path:indexPath];
             break;
         case PageListViewModeCell:
-            if ([self.delegate respondsToSelector:@selector(page_list_view_next_page:heightForRowAtIndexPath:)]) {
+            if ([self.delegate respondsToSelector:@selector(page_list_view_next_page:heightForRowAtIndexPath:has_more_page:)]) {
                 if (indexPath.row< [self.result_array count]) {
                     [self.delegate page_list_view:tableView did_select_row_at_index_path:indexPath];
                 }else{
-                    [self.delegate page_list_view_next_page:tableView did_select_row_at_index_path:indexPath];
+                    [self.delegate page_list_view_next_page:tableView did_select_row_at_index_path:indexPath has_more_page:self._has_more_page];
                 }
             }else{
-                [self page_list_view_next_page:tableView did_select_row_at_index_path:indexPath];
+                [self page_list_view_next_page:tableView did_select_row_at_index_path:indexPath has_more_page:self._has_more_page];
             }
             break;
             
@@ -295,7 +296,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![self.delegate respondsToSelector:@selector(page_list_view_next_page:height_for_row_at_index_path:)]) {
+    if (![self.delegate respondsToSelector:@selector(page_list_view_next_page:height_for_row_at_index_path:has_more_page:)]) {
         return 44.0f;
     }
     switch (_mode) {
@@ -307,11 +308,11 @@
             break;
         case PageListViewModeCell:
             //如果没有实现page_list_view_next_page方法，则同所有cell高度
-            if ([self.delegate respondsToSelector:@selector(page_list_view_next_page:height_for_row_at_index_path:)]) {
+            if ([self.delegate respondsToSelector:@selector(page_list_view_next_page:height_for_row_at_index_path:has_more_page:)]) {
                 if (indexPath.row< [self.result_array count]) {
                     return [self.delegate page_list_view:tableView height_for_row_at_index_path:indexPath];
                 }else{
-                    return [self.delegate page_list_view_next_page:tableView height_for_row_at_index_path:indexPath];
+                    return [self.delegate page_list_view_next_page:tableView height_for_row_at_index_path:indexPath has_more_page:self._has_more_page];
                 }
             }else{
                 return [self.delegate page_list_view:tableView height_for_row_at_index_path:indexPath];
@@ -326,18 +327,11 @@
 }
 
 
-- (void)page_list_view_next_page:(UITableView *)tableView did_select_row_at_index_path:(NSIndexPath *)indexPath
+- (void)page_list_view_next_page:(UITableView *)tableView did_select_row_at_index_path:(NSIndexPath *)indexPath  has_more_page:(Boolean)has_next
 {
-    NSLog(@"sss");
-    
-    [self get_next_page];
+    if (has_next) {
+        [self get_next_page];
+    }
 }
 
 @end
-
-
-
-
-
-
-
