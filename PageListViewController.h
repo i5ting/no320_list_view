@@ -15,7 +15,7 @@
 
 -(int)set_page_count;
 
--(void)first_init_data;
+-(void)init_table_data;
 -(void)reload_next_page:(int)cur_page_number;
 @end
 
@@ -25,11 +25,11 @@
  
 
 @property(nonatomic,retain,readwrite) NSMutableArray *result_array;
-@property(nonatomic,assign,readwrite) int *cur_page_number;
-@property(nonatomic,assign,readwrite) int *page_count;
+@property(nonatomic,assign,readwrite) int cur_page_number;
+@property(nonatomic,assign,readwrite) int page_count;
 
 
 
--(void)first_init_data_callback:(NSMutableArray *)r;
--(void)reload_next_page_callback:(NSMutableArray *)r;
+-(void)init_table_data_callback:(NSArray *)r;
+-(void)reload_next_page_callback:(NSArray *)r;
 @end

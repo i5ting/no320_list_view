@@ -27,16 +27,13 @@
     // Here you would make an HTTP request or something like that
     
     
-    if ([delegate respondsToSelector:@selector(first_init_data)]) {
-         [delegate first_init_data];
+    if ([delegate respondsToSelector:@selector(init_table_data)]) {
+         [delegate init_table_data];
     }
-    
-    
-  
 }
 
 
--(void)first_init_data_callback:(NSMutableArray *)r
+-(void)init_table_data_callback:(NSArray *)r
 {
     self.cur_page_number = 1;
     self.result_array = r;
@@ -59,7 +56,7 @@
 
 
 -(void)reloadNextPage{
-    self.cur_page_number = 2;
+    self.cur_page_number = self.cur_page_number + 1;
     
     NSLog(@"-----%@",[NSString stringWithFormat:@"%d",self.cur_page_number]);
     
@@ -69,7 +66,7 @@
 }
 
 
--(void)reload_next_page_callback:(NSMutableArray *)p
+-(void)reload_next_page_callback:(NSArray *)p
 {
     NSMutableArray *r = [NSMutableArray arrayWithArray:self.result_array];
     [r addObjectsFromArray:p];
