@@ -28,6 +28,29 @@
 
 #pragma mark - ListViewController
 
+- (void)reloadDataSource:(NSArray *)r
+{
+    _reloading = YES;
+    
+    self.result_array = r;
+    
+    if ([delegate respondsToSelector:@selector(set_page_count)]) {
+        self.page_count = [delegate set_page_count] > 0 ?  [delegate set_page_count]: [self.result_array count];
+    }else{
+        self.page_count = [self.result_array count];
+    }
+    
+    self.cur_page_number = [r count]/self.page_count+1;
+    
+    NSLog(@"cur_page_number----%@",[NSString stringWithFormat:@"%d",self.cur_page_number]);
+   
+    if (self.cur_page_number == 1) {
+        [self init_table_data_callback:r];
+    }else{
+        [self reload_next_page_callback:r];
+    }
+}
+
 // This is the core method you should implement
 - (void)reloadTableViewDataSource {
 	_reloading = YES;
@@ -38,6 +61,8 @@
     if ([delegate respondsToSelector:@selector(init_table_data)]) {
          [delegate init_table_data];
     }
+    
+    [self init_table_data_callback:self.result_array];
 }
 
 
@@ -71,6 +96,8 @@
     if ([delegate respondsToSelector:@selector(reload_next_page:)]) {
         [delegate reload_next_page:self.cur_page_number];
     }
+    
+    [self reload_next_page_callback:self.result_array];
 }
 
 

@@ -14,13 +14,16 @@
 
 -(int)set_page_count;
 
--(void)init_table_data;
--(void)reload_next_page:(int)cur_page_number;
 
 - (UITableViewCell *)page_list_view:(UITableView *)tableView cell_for_row_at_index_path:(NSIndexPath *)indexPath;
 - (void)page_list_view:(UITableView *)tableView did_select_row_at_index_path:(NSIndexPath *)indexPath;
 - (CGFloat)page_list_view:(UITableView *)tableView height_for_row_at_index_path:(NSIndexPath *)indexPath;
- 
+
+@optional
+-(void)init_table_data;
+-(void)reload_next_page:(int)cur_page_number;
+
+
 @end
 
 
@@ -89,6 +92,10 @@
  * 获取下一页数据
  */
 -(void)get_next_page;
+
+
+
+- (void)reloadDataSource:(NSArray *)r;
 
 @end
 
